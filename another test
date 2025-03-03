@@ -1,12 +1,6 @@
-while wait(0.1) do
-local orbs = game:GetService("Workspace").CandyHolder
-for i, v in pairs(orbs:GetChildren()) do
-if v:IsA("Part") then
-local user = game.Players.LocalPlayer.Character.Head
-firetouchinterest(user, v, 0)
-elseif v:IsA("Part") then
-local summerOrb = v["Egg"]
-firetouchinterest(game.Players.LocalPlayer.Character.Head, summerOrb, 0)
-end
-end
-end
+local args = {
+    [1] = game:GetService("ReplicatedStorage"):WaitForChild("Eggs"):WaitForChild("EH Egg"):WaitForChild("Pets"):WaitForChild("Easter Death"),  -- Targeting Easter Death inside EH Egg > Pets
+    [2] = 1  -- Number of eggs to hatch
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("HatchEggs"):InvokeServer(unpack(args))
