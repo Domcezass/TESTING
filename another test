@@ -1,25 +1,23 @@
--- Script to Tamper with Pet Chances in Saber Simulator (Executor Test)
-
--- Reference to ReplicatedStorage and the Eggs data
-local petsFolder = game:GetService("ReplicatedStorage"):WaitForChild("Eggs"):WaitForChild("EH Egg"):WaitForChild("Pets")
-
--- Check if the Easter Death pet exists
-local easterDeathEgg = petsFolder:WaitForChild("Easter Death")
-
--- Ensure the pet chance is a NumberValue and modify it
-if easterDeathEgg and easterDeathEgg:IsA("NumberValue") then
-    -- Tampering with the chance by increasing it significantly
-    easterDeathEgg.Value = 1000  -- Modify this value to make the chance extremely high
-    print("Easter Death chance tampered with!")
+local petsFolder = game:GetService("ReplicatedStorage"):FindFirstChild("Eggs")
+if petsFolder then
+    local egg = petsFolder:FindFirstChild("EH Egg")
+    if egg then
+        local pets = egg:FindFirstChild("Pets")
+        if pets then
+            local easterDeath = pets:FindFirstChild("Easter Death")
+            if easterDeath and easterDeath:IsA("NumberValue") then
+                print("Easter Death chance (before):", easterDeath.Value)
+                easterDeath.Value = 1000  -- Modify the drop rate
+                print("Easter Death chance (after):", easterDeath.Value)
+            else
+                print("Easter Death exists, but is not a NumberValue!")
+            end
+        else
+            print("Pets folder not found!")
+        end
+    else
+        print("EH Egg not found!")
+    end
 else
-    print("Easter Death pet not found!")
+    print("Eggs folder not found in ReplicatedStorage!")
 end
-
--- Optional: You can also trigger the hatching process if needed:
-local args = {
-    [1] = easterDeathEgg,  -- Selecting the Easter Death egg
-    [2] = 1  -- Number of eggs to hatch
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("HatchEggs"):InvokeServer(unpack(args))
-print("Triggered egg hatching!")
