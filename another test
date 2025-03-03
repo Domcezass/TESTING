@@ -1,1 +1,6 @@
-game:GetService("ReplicatedStorage"):WaitForChild("HatchEggs"):FireServer("EH Egg", "Easter Death")
+local args = {
+    [1] = game:GetService("ReplicatedStorage"):WaitForChild("Eggs"):WaitForChild("EH Egg"),
+    [2] = 3
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("HatchEggs"):InvokeServer(unpack(args))
