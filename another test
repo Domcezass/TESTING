@@ -1,6 +1,44 @@
-local args = {
-    [1] = game:GetService("ReplicatedStorage"):WaitForChild("Eggs"):WaitForChild("EH Egg"):WaitForChild("Pets"):WaitForChild("Easter Death"),  -- Targeting Easter Death inside EH Egg > Pets
-    [2] = 1  -- Number of eggs to hatch
-}
+-- Test Script to Simulate Selecting and Hatching Easter Death Egg
 
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("HatchEggs"):InvokeServer(unpack(args))
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Reference to the Pets folder
+local petsFolder = game:GetService("ReplicatedStorage"):WaitForChild("Eggs"):WaitForChild("EH Egg"):WaitForChild("Pets")
+
+-- Function to simulate hatching the Easter Death egg
+local function hatchEasterDeath()
+    local easterDeathEgg = petsFolder:WaitForChild("Easter Death")
+    local args = {
+        [1] = easterDeathEgg,  -- Selecting the Easter Death egg
+        [2] = 3  -- Number of eggs to hatch
+    }
+
+    -- Trigger the HatchEggs event to simulate the hatching
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("HatchEggs"):InvokeServer(unpack(args))
+    print("Simulating Easter Death egg hatch!")
+end
+
+-- Function to simulate suspicious modification of Easter Death chances
+local function modifyEasterDeathChance()
+    local easterDeathEgg = petsFolder:WaitForChild("Easter Death")
+    if easterDeathEgg and easterDeathEgg:IsA("NumberValue") then
+        easterDeathEgg.Value = easterDeathEgg.Value * 100  -- Increase the chance to a suspicious level
+        print("Simulated modification of Easter Death chance!")
+    end
+end
+
+-- Function to simulate a normal hatching and abnormal behavior
+local function testEasterDeathBehavior()
+    -- Simulate normal hatching
+    hatchEasterDeath()
+
+    wait(2)  -- Wait for a moment to simulate some time between actions
+
+    -- Simulate modifying the Easter Death chances
+    modifyEasterDeathChance()
+end
+
+-- Trigger the test function
+testEasterDeathBehavior()
